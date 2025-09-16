@@ -19,5 +19,5 @@ public partial class Education
 
     public int ProfileId { get; set; }
 
-    public virtual Profile Profile { get; set; } = null!;
+    //public virtual Profile Profile { get; set; } = null!;
 }

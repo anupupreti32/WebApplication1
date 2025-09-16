@@ -21,5 +21,5 @@ public partial class WorkExperience
 
     public int ProfileId { get; set; }
 
-    public virtual Profile Profile { get; set; } = null!;
+    //public virtual Profile Profile { get; set; } = null!;
 }
