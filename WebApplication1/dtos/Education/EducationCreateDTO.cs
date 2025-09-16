@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WebApplication1.dtos.Education;
 
 public class EducationCreateDTO
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int EducationId { get; set; }
 
     public string InstututionName { get; set; } = null!;

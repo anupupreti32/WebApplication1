@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WebApplication1.dtos.WorkExperience;
 
 public class WorkExperienceUpdateDTO
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int WorkExperienceId { get; set; }
 
     public string CompanyName { get; set; } = null!;

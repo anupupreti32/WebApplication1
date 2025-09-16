@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models;
 
 public partial class WorkExperience
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int WorkExperienceId { get; set; }
 
     public string CompanyName { get; set; } = null!;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models;
 
 public partial class Education
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int EducationId { get; set; }
 
     public string InstututionName { get; set; } = null!;

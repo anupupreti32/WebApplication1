@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WebApplication1.dtos.Project;
 
 public class ProjectCreateDTO
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProjectId { get; set; }
 
     public string ProjectName { get; set; } = null!;

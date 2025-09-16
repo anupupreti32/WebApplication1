@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WebApplication1.dtos.Certificate;
 
 public class CertificateUpdateDTO
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CertificateId { get; set; }
 
     public string CertificateName { get; set; } = null!;

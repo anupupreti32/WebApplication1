@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WebApplication1.dtos.Profile;
 
 public class ProfileCreateDTO
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProfileId { get; set; }
 
     public string ProfileName { get; set; } = null!;
