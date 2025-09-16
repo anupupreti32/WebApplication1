@@ -1,0 +1,15 @@
+namespace WebApplication1.dtos.Project;
+
+public class ProjectCreateDTO
+{
+    public int ProjectId { get; set; }
+
+    public string ProjectName { get; set; } = null!;
+
+    public string? ProjectDescription { get; set; }
+
+    public string? GithubLink { get; set; }
+
+    public int ProfileId { get; set; }
+
+}
