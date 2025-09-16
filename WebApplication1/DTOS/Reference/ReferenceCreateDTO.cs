@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Reference;
+namespace WebApplication1.DTOS.Reference;
 
 public class ReferenceCreateDTO
 {

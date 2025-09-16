@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.WorkExperience;
+namespace WebApplication1.DTOS.WorkExperience;
 
-public class WorkExperienceReadDTO
+public class WorkExperienceCreateDTO
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int WorkExperienceId { get; set; }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Project;
+namespace WebApplication1.DTOS.Project;
 
 public class ProjectUpdateDTO
 {

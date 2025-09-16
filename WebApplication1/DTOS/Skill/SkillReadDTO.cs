@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Skill;
+namespace WebApplication1.DTOS.Skill;
 
-public class SkillCreateDTO
+public class SkillReadDTO
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int SkillId { get; set; }

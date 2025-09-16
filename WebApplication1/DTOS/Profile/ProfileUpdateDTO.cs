@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Profile;
+namespace WebApplication1.DTOS.Profile;
 
 public class ProfileUpdateDTO
 {

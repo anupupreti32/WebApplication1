@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Certificate;
+namespace WebApplication1.DTOS.Certificate;
 
 public class CertificateUpdateDTO
 {

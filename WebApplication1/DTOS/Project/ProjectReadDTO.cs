@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Project;
+namespace WebApplication1.DTOS.Project;
 
-public class ProjectCreateDTO
+public class ProjectReadDTO
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProjectId { get; set; }

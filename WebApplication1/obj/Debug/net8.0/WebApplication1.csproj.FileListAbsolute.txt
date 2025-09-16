@@ -284,3 +284,4 @@
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.pdb
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.genruntimeconfig.cache
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/ref/WebApplication1.dll
+/Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.sourcelink.json

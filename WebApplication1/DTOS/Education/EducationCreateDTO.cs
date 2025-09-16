@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.dtos.Education;
+namespace WebApplication1.DTOS.Education;
 
-public class EducationUpdateDTO
+public class EducationCreateDTO
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int EducationId { get; set; }
