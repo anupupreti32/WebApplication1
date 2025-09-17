@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.DTOS.Profile;
 using WebApplication1.Models;
+using Profile = WebApplication1.Models.Profile;
 
 namespace WebApplication1.controllers
 
@@ -15,38 +18,46 @@ namespace WebApplication1.controllers
     public class ProfilesController : ControllerBase
     {
         private readonly PortfolioContext _context;
+        private readonly IMapper _mapper;
 
-        public ProfilesController(PortfolioContext context)
+        public ProfilesController(PortfolioContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Profiles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
+        public async Task<ActionResult<IEnumerable<ProfileReadDTO>>> GetProfiles()
         {
-            return await _context.Profile.ToListAsync();
+            var profile = await _context.Profile.ToListAsync();
+            var profileReadDto = _mapper.Map<List<ProfileReadDTO>>(profile);
+            return Ok(profileReadDto);
         }
 
         // GET: api/Profiles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Profile>> GetProfile(int id)
+        public async Task<ActionResult<ProfileReadDTO>> GetProfile(int id)
         {
             var profile = await _context.Profile.FindAsync(id);
-
+            var profileReadDto = _mapper.Map<ProfileReadDTO>(profile);
+            
             if (profile == null)
             {
                 return NotFound();
             }
 
-            return profile;
+            return Ok(profileReadDto);
         }
 
         // PUT: api/Profiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, Profile profile)
+        public async Task<ActionResult<ProfileUpdateDTO>> PutProfile(int id, Profile profile)
         {
+            
+            var profileUpdateDto = _mapper.Map<ProfileUpdateDTO>(profile);
+            
             if (id != profile.ProfileId)
             {
                 return BadRequest();
@@ -70,14 +81,17 @@ namespace WebApplication1.controllers
                 }
             }
 
-            return NoContent();
+            return Ok(profileUpdateDto);
         }
 
         // POST: api/Profiles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Profile>> PostProfile(Profile profile)
+        public async Task<ActionResult<ProfileCreateDTO>> PostProfile(Profile profile)
         {
+            var profile3 = await _context.Profile.FindAsync(profile);
+            var profileCreateDto = _mapper.Map<ProfileCreateDTO>(profile3);
+            
             _context.Profile.Add(profile);
             try
             {
@@ -95,7 +109,8 @@ namespace WebApplication1.controllers
                 }
             }
 
-            return CreatedAtAction("GetProfile", new { id = profile.ProfileId }, profile);
+            //return CreatedAtAction("GetProfile", new { id = profile.ProfileId }, profile);
+            return Ok(profileCreateDto);
         }
 
         // DELETE: api/Profiles/5
@@ -109,6 +124,7 @@ namespace WebApplication1.controllers
             }
 
             _context.Profile.Remove(profile);
+            //profile.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return NoContent();

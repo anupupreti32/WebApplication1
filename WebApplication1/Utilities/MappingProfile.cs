@@ -6,20 +6,20 @@ using WebApplication1.DTOS.Reference;
 using WebApplication1.DTOS.Skill;
 using WebApplication1.DTOS.WorkExperience;
 using WebApplication1.Models;
-using Profile = AutoMapper.Profile;
+//using Profile = AutoMapper.Profile;
 
 namespace WebApplication1.Utilities;
 
-public class MappingProfile : Profile 
+public class MappingProfile : AutoMapper.Profile 
 {
 
     public MappingProfile()
     {
+        //ProfileMapping
         CreateMap<ProfileCreateDTO, Profile>();
         CreateMap<ProfileUpdateDTO, Profile>();
         CreateMap<Profile, ProfileUpdateDTO>();
         CreateMap<Profile, ProfileReadDTO>();
-        
         
         //CertificateMapping
         CreateMap<CertificateCreateDTO, Certificate>();
