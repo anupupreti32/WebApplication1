@@ -7,11 +7,11 @@ public class ProfileReadDTO
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProfileId { get; set; }
 
-    public string ProfileName { get; set; } = null!;
+    public required string ProfileName { get; set; }
 
-    public string Address { get; set; } = null!;
+    public required string Address { get; set; } 
 
-    public string ProfileContactNumber { get; set; } = null!;
+    public required string ProfileContactNumber { get; set; } 
 
     public string? Title { get; set; }
 
@@ -19,8 +19,8 @@ public class ProfileReadDTO
 
     public string? GithubLink { get; set; }
 
-    public string Email { get; set; } = null!;
+    public required string Email { get; set; }
 
-    public string LinkedInLink { get; set; } = null!;
+    public required string LinkedInLink { get; set; }
 
 }

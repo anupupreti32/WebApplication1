@@ -7,7 +7,7 @@ public class ProjectUpdateDTO
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProjectId { get; set; }
 
-    public string ProjectName { get; set; } = null!;
+    public required string ProjectName { get; set; } 
 
     public string? ProjectDescription { get; set; }
 

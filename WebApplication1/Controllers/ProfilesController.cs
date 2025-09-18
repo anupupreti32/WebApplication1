@@ -53,10 +53,10 @@ namespace WebApplication1.controllers
         // PUT: api/Profiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProfileUpdateDTO>> PutProfile(int id, Profile profile)
+        public async Task<IActionResult> PutProfile(int id, ProfileUpdateDTO profileUpdateDto)
         {
             
-            var profileUpdateDto = _mapper.Map<ProfileUpdateDTO>(profile);
+            var profile = _mapper.Map<Profile>(profileUpdateDto);
             
             if (id != profile.ProfileId)
             {
@@ -87,10 +87,9 @@ namespace WebApplication1.controllers
         // POST: api/Profiles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ProfileCreateDTO>> PostProfile(Profile profile)
+        public async Task<ActionResult> PostProfile(ProfileCreateDTO profileCreateDto)
         {
-            var profile3 = await _context.Profile.FindAsync(profile);
-            var profileCreateDto = _mapper.Map<ProfileCreateDTO>(profile3);
+            var profile = _mapper.Map<Models.Profile>(profileCreateDto);
             
             _context.Profile.Add(profile);
             try
@@ -109,8 +108,8 @@ namespace WebApplication1.controllers
                 }
             }
 
-            //return CreatedAtAction("GetProfile", new { id = profile.ProfileId }, profile);
-            return Ok(profileCreateDto);
+            return CreatedAtAction("GetProfile", new { id = profileCreateDto.ProfileId }, profileCreateDto);
+            //return Ok(profileCreateDto);
         }
 
         // DELETE: api/Profiles/5

@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models;
 
-public partial class Reference
+public class Reference
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ReferenceId { get; set; }
 
-    public string ReferenceName { get; set; } = null!;
+    public required string ReferenceName { get; set; } 
 
     public string? ReferenceDescription { get; set; }
 
-    public string Email { get; set; } = null!;
+    public required string Email { get; set; } 
 
-    public string ContactNumber { get; set; } = null!;
+    public required string ContactNumber { get; set; } 
 
-    public string Position { get; set; } = null!;
+    public required string Position { get; set; } 
 
     public int ProfileId { get; set; }
 

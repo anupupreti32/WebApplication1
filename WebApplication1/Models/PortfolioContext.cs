@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Models;
 
-public partial class PortfolioContext : DbContext
+public class PortfolioContext : DbContext
 {
     public PortfolioContext()
     {
@@ -27,12 +27,12 @@ public partial class PortfolioContext : DbContext
 
     public virtual DbSet<Skill> Skill { get; set; }
 
-    public virtual DbSet<WorkExperience> WorkExperiences { get; set; }
+    public virtual DbSet<WorkExperience> WorkExperience { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=DefaultConnection");
 
    
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

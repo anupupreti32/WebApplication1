@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.DTOS.Education;
 using WebApplication1.Models;
 
 namespace WebApplication1.controllers
@@ -14,38 +16,46 @@ namespace WebApplication1.controllers
     public class EducationsController : ControllerBase
     {
         private readonly PortfolioContext _context;
+        private readonly IMapper _mapper;
 
-        public EducationsController(PortfolioContext context)
+        public EducationsController(PortfolioContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Education
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Education>>> GetEducation()
+        public async Task<ActionResult<IEnumerable<EducationReadDTO>>> GetEducation()
         {
-            return await _context.Education.ToListAsync();
+            
+            var education = await _context.Education.ToListAsync();
+            var educationReadDto = _mapper.Map<List<EducationReadDTO>>(education);
+
+            return Ok(educationReadDto);
         }
 
         // GET: api/Education/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Education>> GetEducation(int id)
+        public async Task<ActionResult<EducationReadDTO>> GetEducation(int id)
         {
             var education = await _context.Education.FindAsync(id);
+            var educationReadDto = _mapper.Map<EducationReadDTO>(education);
 
             if (education == null)
             {
                 return NotFound();
             }
 
-            return education;
+            return Ok(educationReadDto);
         }
 
         // PUT: api/Education/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEducation(int id, Education education)
+        public async Task<IActionResult> PutEducation(int id, EducationUpdateDTO educationUpdateDto)
         {
+            var education = _mapper.Map<Education>(educationUpdateDto);
             if (id != education.EducationId)
             {
                 return BadRequest();
@@ -69,18 +79,19 @@ namespace WebApplication1.controllers
                 }
             }
 
-            return NoContent();
+            return Ok(educationUpdateDto);
         }
 
         // POST: api/Education
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Education>> PostEducation(Education education)
+        public async Task<ActionResult<EducationCreateDTO>> PostEducation(EducationCreateDTO educationCreateDto)
         {
+            var education = _mapper.Map<Education>(educationCreateDto);
             _context.Education.Add(education);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEducation", new { id = education.EducationId }, education);
+            return CreatedAtAction("GetEducation", new { id = educationCreateDto.EducationId }, educationCreateDto);
         }
 
         // DELETE: api/Education/5

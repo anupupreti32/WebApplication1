@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models;
 
-public partial class Skill
+public class Skill
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int SkillId { get; set; }
 
-    public string SkillName { get; set; } = null!;
+    public required string SkillName { get; set; } 
 
     public string? SkillDescription { get; set; }
 

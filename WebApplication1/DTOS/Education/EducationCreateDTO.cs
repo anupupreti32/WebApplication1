@@ -7,9 +7,9 @@ public class EducationCreateDTO
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int EducationId { get; set; }
 
-    public string InstututionName { get; set; } = null!;
+    public required string InstututionName { get; set; } 
 
-    public string Degree { get; set; } = null!;
+    public required string Degree { get; set; }
 
     public DateTime StartingDate { get; set; }
 

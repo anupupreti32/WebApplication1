@@ -5,6 +5,7 @@
 /Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.runtimeconfig.json
 /Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.dll
 /Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.pdb
+/Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/AutoMapper.dll
 /Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/Azure.Core.dll
 /Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/Azure.Identity.dll
 /Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/Humanizer.dll
@@ -270,6 +271,7 @@
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.csproj.CoreCompileInputs.cache
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.MvcApplicationPartsAssemblyInfo.cs
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+/Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.sourcelink.json
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets.build.json
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets.development.json
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets/msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssets.props
@@ -284,5 +286,3 @@
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.pdb
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.genruntimeconfig.cache
 /Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/ref/WebApplication1.dll
-/Users/anup/Desktop/WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.sourcelink.json
-/Users/anup/Desktop/WebApplication1/WebApplication1/bin/Debug/net8.0/AutoMapper.dll

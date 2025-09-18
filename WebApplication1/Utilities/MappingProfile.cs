@@ -52,8 +52,8 @@ public class MappingProfile : AutoMapper.Profile
         CreateMap<Skill, SkillUpdateDTO>();
         
         //WorkExperinenceMapping
-        CreateMap<WorkExperienceCreateDTO, Skill>();
-        CreateMap<WorkExperienceUpdateDTO, Skill>();
+        CreateMap<WorkExperienceCreateDTO, WorkExperience>();
+        CreateMap<WorkExperienceUpdateDTO, WorkExperience>();
         CreateMap<WorkExperience, WorkExperienceReadDTO>();
         CreateMap<WorkExperience, WorkExperienceUpdateDTO>();
     }
