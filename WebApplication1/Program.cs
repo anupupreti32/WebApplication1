@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using AutoMapper;
+using WebApplication1.Utilities;
 using WebApplication1.Repositories.GenericRepositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillRepositories;
+using WebApplication1.Repositories.SpecificRepositories.EducationRepositories;
+
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -15,8 +19,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IGenericRepositories, GenericRepositories>();
+builder.Services.AddScoped<IGenericRepositories,GenericRepositories>();
+builder.Services.AddScoped<IEducationRepositories,EducationRepositories>();
 builder.Services.AddScoped<ISkillRepositories, SkillRepositories>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

@@ -16,8 +16,6 @@ namespace WebApplication1.Repositories.SpecificRepositories.SkillRepositories
         public async Task<Skill> GetSkillName(string skillName)
         {
             return await _context.Skill.Where(skill => skill.SkillName == skillName).FirstOrDefaultAsync();  //remove the object which is found first. ->FirstOrDefaultAsync
-        4
-                ,
         }
     }
 }
