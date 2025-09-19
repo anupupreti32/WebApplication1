@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Education;
 using WebApplication1.Models;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.EducationRepositories;
 
 namespace WebApplication1.controllers
 {
@@ -16,12 +18,17 @@ namespace WebApplication1.controllers
     public class EducationsController : ControllerBase
     {
         private readonly PortfolioContext _context;
+        private readonly IGenericRepositories _genericRepositories;
+        private readonly IEducationRepositories _educationRepositories;
         private readonly IMapper _mapper;
 
-        public EducationsController(PortfolioContext context, IMapper mapper)
+        public EducationsController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories, IEducationRepositories educationRepositories
+            )
         {
             _context = context;
             _mapper = mapper;
+            _genericRepositories = genericRepositories;
+            _educationRepositories = educationRepositories;
         }
 
         // GET: api/Education
@@ -39,7 +46,24 @@ namespace WebApplication1.controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EducationReadDTO>> GetEducation(int id)
         {
-            var education = await _context.Education.FindAsync(id);
+            var education = await _genericRepositories.GetbyID<Education>(id);
+            var educationReadDto = _mapper.Map<EducationReadDTO>(education);
+
+            if (education == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(educationReadDto);
+        }
+
+        // GET: [/Education/5
+        [HttpGet]
+        [Route("~/api/eucation/instutionName/{InstutionName}")]
+        public async Task<ActionResult<EducationReadDTO>> GetEducation(string InstutionName)
+        {
+            var education = await _educationRepositories.GetInstututionName(InstutionName);
+
             var educationReadDto = _mapper.Map<EducationReadDTO>(education);
 
             if (education == null)
