@@ -4,6 +4,8 @@ using AutoMapper;
 using WebApplication1.Repositories.GenericRespositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillSpecificRepositories;
 using WebApplication1.Utilities;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.EducationRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -19,6 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGenericRepositories,GenericRepositories>();
+builder.Services.AddScoped<IEducationRepositories,EducationRepositories>();
 builder.Services.AddScoped<ISkillSpecificRepositories,SkillSpecificRepositories>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
