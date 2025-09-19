@@ -9,7 +9,7 @@ public class Education
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int EducationId { get; set; }
 
-    public required string InstutionName { get; set; } 
+    public required string InstututionName { get; set; } 
 
     public string Degree { get; set; } = null!;
 

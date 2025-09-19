@@ -10,9 +10,9 @@ namespace WebApplication1.Repositories.SpecificRepositories.EducationRepositorie
         {
             _context = context;
         }
-        public async Task<Education> GetInstututionName(string InstuationsName)
+        public async Task<Education> GetInstututionName(string instututionName)
         {
-            return await _context.Education.Where(education=> education.InstututionName == InstuationsName).FirstOrDefaultAsync();
+            return await _context.Education.Where(education=> education.InstututionName == instututionName).FirstOrDefaultAsync();
         }
     }
 }

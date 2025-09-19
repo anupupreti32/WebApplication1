@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Skill;
 using WebApplication1.Models;
-using WebApplication1.Repositories.GenericRespositories;
+using WebApplication1.Repositories.GenericRepositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillSpecificRepositories;
 
 namespace WebApplication1.controllers

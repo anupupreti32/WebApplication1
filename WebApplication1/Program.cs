@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using AutoMapper;
-using WebApplication1.Repositories.GenericRespositories;
+using WebApplication1.Repositories.GenericRepositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillSpecificRepositories;
 using WebApplication1.Utilities;
 using WebApplication1.Repositories.GenericRepositories;
