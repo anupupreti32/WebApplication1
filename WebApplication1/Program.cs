@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using AutoMapper;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ReferenceRepositories;
 using WebApplication1.Utilities;
 using WebApplication1.Repositories.GenericRepositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillRepositories;
@@ -22,6 +24,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGenericRepositories,GenericRepositories>();
 builder.Services.AddScoped<IEducationRepositories,EducationRepositories>();
 builder.Services.AddScoped<ISkillRepositories, SkillRepositories>();
+builder.Services.AddScoped<IReferenceRepositories, ReferenceRepositories>();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();

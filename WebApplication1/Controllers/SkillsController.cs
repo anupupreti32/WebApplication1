@@ -10,6 +10,8 @@ using WebApplication1.DTOS.Skill;
 using WebApplication1.Models;
 using WebApplication1.Repositories.GenericRepositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillRepositories;
+using WebApplication1.Repositories.GenericRepositories;
+//using WebApplication1.Repositories.SpecificRepositories.SkillRepositories;
 
 namespace WebApplication1.controllers
 {
