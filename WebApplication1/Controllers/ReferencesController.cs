@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Reference;
 using WebApplication1.Models;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ReferenceRepositories;
 
-namespace WebApplication1.controllers
+namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,44 +19,62 @@ namespace WebApplication1.controllers
     {
         private readonly PortfolioContext _context;
         private readonly IMapper _mapper;
-
-        public ReferencesController(PortfolioContext context, IMapper mapper)
+        private readonly IGenericRepositories _genericRepositories;
+        private readonly IReferenceRepositories _ReferenceRepositories;
+        public ReferencesController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories, IReferenceRepositories ReferenceRepositories)
         {
             _context = context;
             _mapper = mapper;
+            _genericRepositories = genericRepositories;
+            _ReferenceRepositories = ReferenceRepositories;
         }
 
         // GET: api/References
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReferenceReadDTO>>> GetReference()
+        public async Task<ActionResult<IEnumerable<Reference>>> GetReference()
         {
-            var reference =  await _context.Reference.ToListAsync();
-            var referenceReadDto = _mapper.Map<List<ReferenceReadDTO>>(reference);
-
-            return Ok(referenceReadDto);
+            var reference = await _context.Reference.ToListAsync();
+            var referenceReadDTO = _mapper.Map<List<ReferenceReadDTO>>(reference);
+            return Ok(referenceReadDTO);
+            //return await _context.Reference.ToListAsync();
         }
 
         // GET: api/References/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ReferenceReadDTO>> GetReference(int id)
         {
-            var reference = await _context.Reference.FindAsync(id);
-            var referenceReadDto = _mapper.Map<ReferenceReadDTO>(reference);
+            //var reference = await _context.Reference.FindAsync(id);
+            var reference = await _genericRepositories.GetbyID<Reference>(id);
+            var referenceReadDTO = _mapper.Map<ReferenceReadDTO>(reference);    
 
             if (reference == null)
             {
                 return NotFound();
             }
+            return Ok(referenceReadDTO);
+        }
+        // GET: api/References/5
+        [HttpGet]
+        [Route("~/api/references/referenceName/{referenceName}")]
+        public async Task<ActionResult<ReferenceReadDTO>> GetReference(string referenceName)
+        {
+            //var reference = await _context.Reference.FindAsync(id);
+            var reference = await _ReferenceRepositories.GetReferenceName(referenceName);
+            var referenceReadDTO = _mapper.Map<ReferenceReadDTO>(reference);
 
-            return Ok(referenceReadDto);
+            if (reference == null)
+            {
+                return NotFound();
+            }
+            return Ok(referenceReadDTO);
         }
 
         // PUT: api/References/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReference(int id, ReferenceUpdateDTO referenceUpdateDto)
+        public async Task<IActionResult> PutReference(int id, ReferenceUpdateDTO referenceUpdateDTO)
         {
-            var reference = _mapper.Map<Reference>(referenceUpdateDto);
+            var reference = _mapper.Map<Models.Reference>(referenceUpdateDTO);
             if (id != reference.ReferenceId)
             {
                 return BadRequest();
@@ -78,19 +98,20 @@ namespace WebApplication1.controllers
                 }
             }
 
-            return Ok(referenceUpdateDto);
+            return Ok(referenceUpdateDTO);
         }
 
         // POST: api/References
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ReferenceUpdateDTO>> PostReference(ReferenceUpdateDTO referenceUpdateDto)
+        public async Task<ActionResult<Reference>> PostReference(ReferenceCreateDTO referenceCreateDTO)
         {
-            var reference= _mapper.Map<Reference>(referenceUpdateDto);
+            var reference = _mapper.Map<Models.Reference>(referenceCreateDTO);
             _context.Reference.Add(reference);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReference", new { id = referenceUpdateDto.ReferenceId }, referenceUpdateDto);
+            return CreatedAtAction("GetReference", new { id = referenceCreateDTO.ReferenceId }, referenceCreateDTO);
+
         }
 
         // DELETE: api/References/5

@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Skill;
 using WebApplication1.Models;
-using WebApplication1.Repositories.GenericRespositories;
-using WebApplication1.Repositories.SpecificRepositories.SkillSpecificRepositories;
+using WebApplication1.Repositories.GenericRepositories;
+//using WebApplication1.Repositories.SpecificRepositories.SkillRepositories;
 
 namespace WebApplication1.controllers
 {
@@ -20,15 +20,15 @@ namespace WebApplication1.controllers
         private readonly PortfolioContext _context;
         private readonly IGenericRepositories _genericRepositories;
         private readonly IMapper _mapper;
-        private readonly ISkillSpecificRepositories _skillSpecificRepositories;
+        //private readonly ISkillRepositories _skillRepositories;
 
-        public SkillsController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories,
-            ISkillSpecificRepositories skillSpecificRepositories)
+        public SkillsController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories
+           )
         {
             _context = context;
             _mapper = mapper;
             _genericRepositories = genericRepositories;
-            _skillSpecificRepositories = skillSpecificRepositories;
+            //_skillRepositories = skillRepositories;
         }
 
         // GET: api/Skills
@@ -56,21 +56,7 @@ namespace WebApplication1.controllers
             return Ok(skillReadDto);
         }
 
-        // GET: api/Skills/5
-        [HttpGet]
-        [Route("~/api/skills/skillName/{skillName}")]
-        public async Task<ActionResult<SkillReadDTO>> GetSkillName(string skillName)
-        {
-            var skill = await _skillSpecificRepositories.GetSkillName(skillName);
-            var skillReadDto = _mapper.Map<SkillReadDTO>(skill);
-
-            if (skill == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(skillReadDto);
-        }
+       
 
         // PUT: api/Skills/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using AutoMapper;
-using WebApplication1.Repositories.GenericRespositories;
-using WebApplication1.Repositories.SpecificRepositories.SkillSpecificRepositories;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ReferenceRepositories;
 using WebApplication1.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGenericRepositories,GenericRepositories>();
-builder.Services.AddScoped<ISkillSpecificRepositories,SkillSpecificRepositories>();
+builder.Services.AddScoped<IReferenceRepositories, ReferenceRepositories>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
