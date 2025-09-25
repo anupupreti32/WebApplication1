@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Certificate;
+using WebApplication1.Repositories.GenericRepositories;
+
 using WebApplication1.Models;
+using WebApplication1.Repositories.SpecificRepositories.CertificateRepositories;
 
 namespace WebApplication1.controllers
 {
@@ -17,11 +20,15 @@ namespace WebApplication1.controllers
     {
         private readonly PortfolioContext _context;
         private readonly IMapper _mapper;
+        private readonly IGenericRepositories _genericRepositories;
+        private readonly ICertificateRepositories _certificateRepositories;
 
-        public CertificatesController(PortfolioContext context, IMapper mapper)
+        public CertificatesController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories, ICertificateRepositories certificateRepositories)
         {
             _context = context;
             _mapper = mapper;
+            _genericRepositories = genericRepositories;
+            _certificateRepositories = certificateRepositories; 
         }
 
         // GET: api/Certificate
@@ -39,9 +46,25 @@ namespace WebApplication1.controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CertificateReadDTO>> GetCertificate(int id)
         {
-            
-            var certificate = await _context.Certificate.FindAsync(id);
+
+            var certificate = await _genericRepositories.GetbyID<Certificate>(id);
             var  certificateReadDto = _mapper.Map<CertificateReadDTO>(certificate);
+
+            if (certificate == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(certificateReadDto);
+        }
+
+        [HttpGet]
+        [Route("~/api/certificate/certificateName/{CertificateName}")]
+        public async Task<ActionResult<CertificateReadDTO>> GetCertificate(string CertificateName)
+        {
+
+            var certificate = await _certificateRepositories.GetCertificateName(CertificateName);
+            var certificateReadDto = _mapper.Map<CertificateReadDTO>(certificate);
 
             if (certificate == null)
             {

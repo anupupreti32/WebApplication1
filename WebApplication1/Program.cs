@@ -7,6 +7,10 @@ using WebApplication1.Utilities;
 using WebApplication1.Repositories.GenericRepositories;
 using WebApplication1.Repositories.SpecificRepositories.SkillRepositories;
 using WebApplication1.Repositories.SpecificRepositories.EducationRepositories;
+using WebApplication1.Repositories.SpecificRepositories.CertificateRepositories;
+using WebApplication1.Repositories.SpecificRepositories.WorkExperienceRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ProjectRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ProfileRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -25,6 +29,10 @@ builder.Services.AddScoped<IGenericRepositories,GenericRepositories>();
 builder.Services.AddScoped<IEducationRepositories,EducationRepositories>();
 builder.Services.AddScoped<ISkillRepositories, SkillRepositories>();
 builder.Services.AddScoped<IReferenceRepositories, ReferenceRepositories>();
+builder.Services.AddScoped<ICertificateRepositories, CertificateRepositories>();
+builder.Services.AddScoped<IWorkExperienceRepositories, WorkExperienceRepositories>();
+builder.Services.AddScoped<IProjectRepositories, ProjectRepositories>();
+builder.Services.AddScoped<IProfileRepositories, ProfileRepositories>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

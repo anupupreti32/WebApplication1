@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Project;
 using WebApplication1.Models;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ProjectRepositories;
 
 namespace WebApplication1.controllers
 {
@@ -17,10 +19,14 @@ namespace WebApplication1.controllers
     {
         private readonly PortfolioContext _context;
         private readonly IMapper _mapper;
-        public ProjectsController(PortfolioContext context, IMapper mapper)
+        private readonly IGenericRepositories _genericRepositories;
+        private readonly IProjectRepositories _projectRepositories;
+        public ProjectsController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories, IProjectRepositories projectRepositories)
         {
             _context = context;
             _mapper = mapper;
+            _genericRepositories = genericRepositories;
+            _projectRepositories = projectRepositories;
         }
 
         // GET: api/Ptojects
@@ -37,7 +43,24 @@ namespace WebApplication1.controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectReadDTO>> GetProject(int id)
         {
-            var project = await _context.Project.FindAsync(id);
+            var project = await _genericRepositories.GetbyID<Project>(id);
+            var projectReadDto = _mapper.Map<ProjectReadDTO>(project);
+
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(projectReadDto);
+        }
+
+
+
+        [HttpGet]
+        [Route("~/api/project/projectName/{ProjectName}")]
+        public async Task<ActionResult<ProjectReadDTO>> GetProject(string ProjectName)
+        {
+            var project = await _projectRepositories.GetProjectName(ProjectName);
             var projectReadDto = _mapper.Map<ProjectReadDTO>(project);
 
             if (project == null)

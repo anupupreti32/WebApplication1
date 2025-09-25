@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.Profile;
 using WebApplication1.Models;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ProfileRepositories;
+using WebApplication1.Repositories.SpecificRepositories.ProjectRepositories;
 using Profile = WebApplication1.Models.Profile;
 
 namespace WebApplication1.controllers
@@ -19,11 +22,16 @@ namespace WebApplication1.controllers
     {
         private readonly PortfolioContext _context;
         private readonly IMapper _mapper;
+        private readonly IGenericRepositories _genericRepositories;
+        private readonly IProfileRepositories _profileRepositories;
 
-        public ProfilesController(PortfolioContext context, IMapper mapper)
+        public ProfilesController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories, IProfileRepositories profileRepositories)
         {
             _context = context;
             _mapper = mapper;
+            _genericRepositories = genericRepositories;
+            _profileRepositories = profileRepositories;
+
         }
 
         // GET: api/Profiles
@@ -39,9 +47,24 @@ namespace WebApplication1.controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProfileReadDTO>> GetProfile(int id)
         {
-            var profile = await _context.Profile.FindAsync(id);
+            var profile = await _genericRepositories.GetbyID<Profile>(id);
             var profileReadDto = _mapper.Map<ProfileReadDTO>(profile);
             
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(profileReadDto);
+        }
+
+        [HttpGet]
+        [Route("~/api/profile/profileName/{ProfileName}")]
+        public async Task<ActionResult<ProfileReadDTO>> GetProfile(string ProfileName)
+        {
+            var profile = await _profileRepositories.GetProfileName(ProfileName);
+            var profileReadDto = _mapper.Map<ProfileReadDTO>(profile);
+
             if (profile == null)
             {
                 return NotFound();

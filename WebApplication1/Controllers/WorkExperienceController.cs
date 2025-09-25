@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DTOS.WorkExperience;
 using WebApplication1.Models;
+using WebApplication1.Repositories.GenericRepositories;
+using WebApplication1.Repositories.SpecificRepositories.WorkExperienceRepositories;
 
 namespace WebApplication1.controllers
 {
@@ -17,11 +19,14 @@ namespace WebApplication1.controllers
     {
         private readonly PortfolioContext _context;
         private readonly IMapper _mapper;
-
-        public WorkExperienceController(PortfolioContext context, IMapper mapper)
+        private readonly IGenericRepositories _genericRepositories;
+        private readonly IWorkExperienceRepositories _workExperienceRepositories;
+        public WorkExperienceController(PortfolioContext context, IMapper mapper, IGenericRepositories genericRepositories, IWorkExperienceRepositories workExperienceRepositories)
         {
             _context = context;
             _mapper = mapper;
+            _genericRepositories = genericRepositories;
+            _workExperienceRepositories = workExperienceRepositories;
         }
 
         // GET: api/WorkExperience
@@ -38,7 +43,23 @@ namespace WebApplication1.controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkExperienceReadDTO>> GetWorkExperience(int id)
         {
-            var workExperience = await _context.WorkExperience.FindAsync(id);
+            var workExperience = await _genericRepositories.GetbyID<WorkExperience>(id);
+            var workExperienceReadDto = _mapper.Map<WorkExperienceReadDTO>(workExperience);
+            if (workExperience == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(workExperienceReadDto);
+        }
+
+
+
+        [HttpGet]
+        [Route("~/api/workExperience/companyName/{CompanyName}")]
+        public async Task<ActionResult<WorkExperienceReadDTO>> GetWorkExperience(string CompanyName)
+        {
+            var workExperience = await _workExperienceRepositories.GetCompanyName(CompanyName);
             var workExperienceReadDto = _mapper.Map<WorkExperienceReadDTO>(workExperience);
             if (workExperience == null)
             {
